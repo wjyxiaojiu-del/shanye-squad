@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <title>山野小队</title>
+  </head>
+  <body>
+    <!-- 游戏挂载点：Canvas(场景) + DOM UI 叠层 都由 Game 注入这里 -->
+    <div id="app"></div>
+    <!-- 竖屏引导层：纯 CSS 由 orientation 媒体查询控制显隐，手机竖屏时提示横屏 -->
+    <div id="rotate-hint">
+      <div class="rotate-card">
+        <div class="rotate-phone">📱</div>
+        <div class="rotate-title">请把手机横过来</div>
+        <div class="rotate-sub">《山野小队》横屏更棒 ⛺</div>
+        <button id="rotate-continue" class="hand-btn">已横屏,继续 →</button>
+      </div>
+    </div>
+    <script>
+      // 轻量:主脚本加载前就能跑,让竖屏提示层可被"继续"按钮关掉
+      (function () {
+        var hint = document.getElementById('rotate-hint');
+        var btn = document.getElementById('rotate-continue');
+        if (hint && btn) {
+          btn.addEventListener('click', function () {
+            hint.style.display = 'none';
+            // 主脚本里的 orientation 媒体查询会再次隐藏它,横屏也不会再挡住
+          });
+        }
+      })();
+    </script>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
